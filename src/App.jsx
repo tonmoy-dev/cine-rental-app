@@ -1,12 +1,18 @@
-import './App.css'
+import "./App.css";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
 
 function App() {
-
   return (
     <>
-     <h1 className="text-3xl">Cine Rental App</h1>
+      <Header />
+      <main>
+        <div className="container grid lg:grid-cols-[218px_1fr] gap-[3.5rem]">
+          <Sidebar />
+        </div>
+      </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
