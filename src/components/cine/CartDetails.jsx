@@ -1,17 +1,22 @@
 import { useContext } from "react";
+import { toast } from "react-toastify";
 import deleteIcon from "../../assets/delete.svg";
 import checkoutIcon from "../../assets/icons/checkout.svg";
 import { MovieContext } from "../../context";
 import { getImgUrl } from "../../utils/cine-utility";
 
 export default function CartDetails({ onClose }) {
-  const { cartData, setCartData } = useContext(MovieContext);
+  const { state, dispatch } = useContext(MovieContext);
+  const cartData = state.cartData;
 
   function handleItemDelete(itemId) {
-    const filteredData = cartData.filter((item) => {
-      return item.id !== itemId;
+    dispatch({
+      type: "REMOVE_FROM_CART",
+      payload: {
+        id: itemId,
+      },
     });
-    setCartData([...filteredData]);
+    toast.success(`Removed ${item.title} from the cart!`);
   }
   return (
     <div className="fixed top-0 left-0 w-screen h-screen z-50 bg-black/60 backdrop-blur-sm">

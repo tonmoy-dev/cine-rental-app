@@ -9,8 +9,9 @@ import CartDetails from "./cine/CartDetails";
 
 export default function Header() {
   const [showCart, setShowCart] = useState(false);
-  const { cartData, setCartData } = useContext(MovieContext);
+  const { state } = useContext(MovieContext);
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
+  const cartData = state.cartData;
 
   function handleCartShow() {
     setShowCart(true);

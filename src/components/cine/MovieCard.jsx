@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 import { MovieContext } from "../../context";
 import { getImgUrl } from "../../utils/cine-utility";
 import MovieDetailsModal from "./MovieDetailsModal";
@@ -8,7 +9,8 @@ export default function MovieCard({ movie }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-  const { cartData, setCartData } = useContext(MovieContext);
+  const { state, dispatch } = useContext(MovieContext);
+  const cartData = state.cartData;
 
   // handling modal closing
   function handleModalClose() {
@@ -28,9 +30,16 @@ export default function MovieCard({ movie }) {
       return item.id === movie.id ? true : false;
     });
     if (!foundInCart) {
-      setCartData([...cartData, movie]);
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: {
+          ...movie,
+        },
+      });
+
+      toast.success(`Movie ${movie.title} added!`);
     } else {
-      console.log("already added");
+      toast.error(`Movie ${movie.title} added already!`);
     }
   }
   return (
